@@ -14,13 +14,14 @@ jobs:
       - node/install
       - checkout
       - run:
-          name: Frontend install
-          command: |
-            npm run frontend:install
-      - run:
           name: Backend install
           command: |
             npm run backend:install
+      - run:
+          name: Frontend install
+          command: |
+            npm run frontend:install
+
       - run:
           name: Frontend build
           command: |
