@@ -30,7 +30,8 @@ jobs:
             npm run frontend:install
       - save_cache:
           paths:
-            - "node_modules"
+            - "./udagram-api/node_modules"
+            - "./udagram-frontend/node_modules"
           key: v1-dependencies- 
       - run:
           name: Frontend build
@@ -38,7 +39,7 @@ jobs:
             npm run frontend:build
       - run:
           name: Install angularcli
-          command: sudo npm install -g @angular/cli@latest
+          command: npm install -g @angular/cli@latest
       - run:
           name: Frontend test
           command: |
