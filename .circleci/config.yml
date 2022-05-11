@@ -13,6 +13,7 @@ jobs:
     steps:
       - node/install
       - checkout
+      - aws-cli/setup
       - run:
           name: Backend install
           command: |
@@ -29,6 +30,10 @@ jobs:
           name: Backend build
           command: |
             npm run backend:build
+      - run:
+          name: Deployment
+          command: |
+            npm run frontend:deploy
       
 
 # Invoke jobs via workflows
