@@ -21,7 +21,6 @@ jobs:
           name: Frontend install
           command: |
             npm run frontend:install
-
       - run:
           name: Frontend build
           command: |
