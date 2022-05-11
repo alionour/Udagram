@@ -27,6 +27,14 @@ jobs:
           command: |
             npm run frontend:build
       - run:
+          name: Frontend test
+          command: |
+            npm run frontend:test
+      - run:
+          name: Backend test
+          command: |
+            npm run backend:test
+      - run:
           name: Backend build
           command: |
             npm run backend:build
