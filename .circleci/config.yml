@@ -10,8 +10,7 @@ jobs:
   build:
     docker:
       - image: "cimg/node:18.1.0"
-        environment:
-            CHROME_BIN: "/usr/bin/google-chrome"
+
     steps:
       - node/install
       - checkout
