@@ -9,11 +9,17 @@ orbs:
 jobs:
   build:
     docker:
-      - image: "cimg/base:stable"
+      - image: "cimg/node:18.1.0"
+        environment:
+            CHROME_BIN: "/usr/bin/google-chrome"
     steps:
       - node/install
       - checkout
       - aws-cli/setup
+      - restore_cache: 
+          keys: 
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
       - run:
           name: Backend install
           command: |
@@ -22,14 +28,17 @@ jobs:
           name: Frontend install
           command: |
             npm run frontend:install
+      - save_cache:
+          paths:
+            - "node_modules"
+          key: v1-dependencies- 
       - run:
           name: Frontend build
           command: |
             npm run frontend:build
       - run:
-          name: Backend test
-          command: |
-            npm run backend:test
+          name: Install angularcli
+          command: sudo npm install -g @angular/cli@latest
       - run:
           name: Frontend test
           command: |

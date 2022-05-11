@@ -3,7 +3,6 @@
         "backend:install": "cd udagram-api && npm install",
         "backend:start": "cd udagram-api && npm run start",
         "backend:build": "cd udagram-api && npm run build",
-        "backend:test": "cd udagram-api && npm run test",
         "frontend:install": "cd udagram-frontend && npm install --legacy-peer-deps",
         "frontend:start": "cd udagram-frontend && npm run start",
         "frontend:build": "cd udagram-frontend && npm run build",
