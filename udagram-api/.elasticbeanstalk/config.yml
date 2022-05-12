@@ -1,0 +1,17 @@
+branch-defaults:
+  master:
+    environment: udagram-api-dev
+deploy:
+  artifact: www/Archive.zip
+global:
+  application_name: udagram-api
+  default_ec2_keyname: null
+  default_platform: Node.js
+  default_region: us-east-1
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: udagram.alionour
+  sc: git
+  workspace_type: Application
