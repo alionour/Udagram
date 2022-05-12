@@ -13,7 +13,7 @@ version: 2.1
 ```
 ##### CircleCI ORBS
 **orbs** are a set of instructions created by CircleCi that allow us to configure the pipeline on which we will run our actions. These instructions will instruct the server to setup specific software on the server executing our pipeline. We used it setup node.js, install the AWS CLI, browser tools for the purpose of testing and elaticbeanstalk cli. 
-1. The pipeline uses orbs to install Node, the AWS cli ,browser tools and the EB cli .
+
 ```yml
 orbs:
   aws-cli: circleci/aws-cli@3.1.1
@@ -21,31 +21,37 @@ orbs:
   browser-tools: circleci/browser-tools@1.3.0
   eb: circleci/aws-elastic-beanstalk@2.0.1
 ```
+##### CircleCI JOBS
+Jobs are groups of commands that we want to run.
+we created a job called **build** that install node then checks out the code from master branch then setup aws-cli , chrome ,chromedriver and elasticbeanstalk with consideration that 
+- **aws cli** is required to deploy the frontend application.
+- **eb cli** is required to deploy the backend application.
+- **chrome** is required to test the frontend application.
 
-2. install node then checks out the code from master branch then setup aws-cli , chrome ,chromedriver and elasticbeanstalk
 ```yml
+      # install node
       - node/install
+      # checks the code at master
       - checkout
+      # setup aws cli
       - aws-cli/setup
+      # setup chrome and chromedriver
+      # to run tests
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
+      # setup elastic beanstalk
+      # to deploy backend
       - eb/setup
 ```
-3. FrontEnd & BackEnd install
-4. FrontEnd & BackEnd build
-5. Frontend test
-6. FrontEnd & BackEnd deploy
-
+Restore cache if exists by comparing package.json
 ```yml
- - restore_cache: 
-          keys: 
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-      - run:
-          command: |
-            google-chrome --version
-            chromedriver --version
-          name: Check install
+- restore_cache: 
+    keys: 
+    - v1-dependencies-{{ checksum "package.json" }}
+    - v1-dependencies-
+```
+Install the required packages required by both frontend and backend applications
+```yml
       - run:
           name: Backend install
           command: |
@@ -54,29 +60,67 @@ orbs:
           name: Frontend install
           command: |
             npm run frontend:install
+```
+Save chache of the packages installled
+```yml
       - save_cache:
           paths:
             - "./udagram-api/node_modules"
             - "./udagram-frontend/node_modules"
           key: v1-dependencies- 
-      - run:
-          name: Frontend build
-          command: |
-            npm run frontend:build
-      - run:
-          name: Install angularcli
-          command: npm install -g @angular/cli@latest
+```
+Build both frontend and backend applications
+```yml
+# build frontend
+- run:
+    name: Frontend build
+    command: |
+    npm run frontend:build
+# run karma tests
+- run:
+    name: Frontend test
+    command: |
+    npm run frontend:test
+```
+Install angular cli to run tests
+```yml
+# install angular cli to run karma tests
+- run:
+    name: Install angularcli
+    command: npm install -g @angular/cli@latest
+```
+Run frontend tests
+```yml
+      # run karma tests
       - run:
           name: Frontend test
           command: |
             npm run frontend:test
-      - run:
-          name: Backend build
-          command: |
-            npm run backend:build
 
+```
+Frontend & Backend deploy
+
+```yml
+       # deploy backend to elastic beanstalk
+      - run:
+          name: Backend Deployment 
+          command: |
+            npm run backend:deploy
+      # deploy frontend to s3
       - run:
           name: Deployment
           command: |
             npm run frontend:deploy
+```
+#### CIRCLECI WORKSFLOWS
+Workflows are instructions about the order of the jobs. They allow us to create complex flows and specify manual approvals. Workflows are not always present in a pipeline.
+Runs build job if only changes have been made to master branch as specified by filter
+```yml
+workflows:
+  build:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: master
 ```
