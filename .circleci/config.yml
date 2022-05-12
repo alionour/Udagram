@@ -15,21 +15,31 @@ jobs:
         environment:
             CHROME_BIN: "/usr/bin/google-chrome"
     steps:
+      # install node
       - node/install
+      # checks the code at master
       - checkout
+      # setup aws cli
       - aws-cli/setup
+      # setup chrome and chromedriver
+      # to run tests
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
+      # setup elastic beanstalk
+      # to deploy backend
       - eb/setup
+      # restore cache if exists by comparing package.json
       - restore_cache: 
           keys: 
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
+      # checks google chrome and chromedriver
       - run:
           command: |
             google-chrome --version
             chromedriver --version
           name: Check install
+      # install dependencies
       - run:
           name: Backend install
           command: |
@@ -38,30 +48,37 @@ jobs:
           name: Frontend install
           command: |
             npm run frontend:install
+      # save cache
       - save_cache:
           paths:
             - "./udagram-api/node_modules"
             - "./udagram-frontend/node_modules"
           key: v1-dependencies- 
+      # build frontend
       - run:
           name: Frontend build
           command: |
             npm run frontend:build
+      # install angular cli to run karma tests
       - run:
           name: Install angularcli
           command: npm install -g @angular/cli@latest
+      # run karma tests
       - run:
           name: Frontend test
           command: |
             npm run frontend:test
+      # build backend
       - run:
           name: Backend build
           command: |
             npm run backend:build
+      # deploy backend to elastic beanstalk
       - run:
           name: Backend Deployment 
           command: |
             npm run backend:deploy
+      # deploy frontend to s3
       - run:
           name: Deployment
           command: |
