@@ -20,6 +20,7 @@ jobs:
       - aws-cli/setup
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
+      - eb/setup
       - restore_cache: 
           keys: 
             - v1-dependencies-{{ checksum "package.json" }}
@@ -61,7 +62,7 @@ jobs:
           name: Backend Deployment
           command: |
             npm run backend:deploy
-      - eb/setup
+
       - run:
           name: Deployment
           command: |
