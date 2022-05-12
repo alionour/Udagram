@@ -5,7 +5,7 @@ The pipeline is setup and connected with this GitHub repository in CircleCI.
 
 ## Order of commands
 
-1. The pipeline uses orbs to install Node, the AWS cli and the EB cli.
+1. The pipeline uses orbs to install Node, the AWS cli ,browser tools and the EB cli .
 ```yml
 orbs:
   aws-cli: circleci/aws-cli@3.1.1
@@ -13,6 +13,7 @@ orbs:
   browser-tools: circleci/browser-tools@1.3.0
   eb: circleci/aws-elastic-beanstalk@2.0.1
 ```
+
 2. install node then checks out the code from master branch then setup aws-cli , chrome ,chromedriver and elasticbeanstalk
 ```yml
       - node/install
