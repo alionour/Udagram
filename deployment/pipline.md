@@ -1,10 +1,18 @@
 
 # Pipeline Process
 
-The pipeline is setup and connected with this GitHub repository in CircleCI.
+The pipeline is setup and connected with this GitHub repository in CircleCI to give us more confidence about our application before being deployed.
+Pipline gives:
+- **Speed**: Automatically performing all the steps of a pipeline is faster than doing it manually each time
+- **Finding bugs**: By running tests each time we are trying to deploy, we are able to find bugs earlier.
 
-## Order of commands
-
+##### CircleCI version
+This is simply indicating which version of the platform our pipeline should use and current version is 2.1. 
+```yml
+version: 2.1
+```
+##### CircleCI ORBS
+**orbs** are a set of instructions created by CircleCi that allow us to configure the pipeline on which we will run our actions. These instructions will instruct the server to setup specific software on the server executing our pipeline. We used it setup node.js, install the AWS CLI, browser tools for the purpose of testing and elaticbeanstalk cli. 
 1. The pipeline uses orbs to install Node, the AWS cli ,browser tools and the EB cli .
 ```yml
 orbs:

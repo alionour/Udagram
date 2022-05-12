@@ -31,8 +31,12 @@ jobs:
       # restore cache if exists by comparing package.json
       - restore_cache: 
           keys: 
-            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-{{ checksum "./udagram-api/package.json" }}
             - v1-dependencies-
+      - restore_cache: 
+          keys: 
+            - v2-dependencies-{{ checksum "./udagram-frontend/package.json" }}
+            - v2-dependencies-
       # checks google chrome and chromedriver
       - run:
           command: |
@@ -51,9 +55,12 @@ jobs:
       # save cache
       - save_cache:
           paths:
-            - "./udagram-api/node_modules"
             - "./udagram-frontend/node_modules"
-          key: v1-dependencies- 
+          key: v3-dependencies- 
+      - save_cache:
+          paths:
+            - "./udagram-api/node_modules"
+          key: v4-dependencies- 
       # build frontend
       - run:
           name: Frontend build
