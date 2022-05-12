@@ -51,8 +51,8 @@ AWS_ACCESS_KEY_ID=ID
 AWS_SECRET_ACCESS_KEY=SECRTb2PhXaXSOou
 JWT_SECRET=SECRET
 ```
-4. From the root of the repo, navigate udagram-api folder `cd starter/udagram-api` to install the node_modules `npm install`. After installation is done start the api in dev mode with `npm run dev`.
-5. Without closing the terminal in step 1, navigate to the udagram-frontend `cd starter/udagram-frontend` to intall the node_modules `npm install`. After installation is done start the api in dev mode with `npm run start`.
+1. From the root of the repo, navigate udagram-api folder `cd udagram-api` to install the node_modules `npm install`. After installation is done start the api in dev mode with `npm run dev`.
+2. Without closing the terminal in step 1, navigate to the udagram-frontend `cd udagram-frontend` to intall the node_modules `npm install`. After installation is done start the api in dev mode with `npm run start`.
 
 ## Testing
 
@@ -78,7 +78,7 @@ The e2e tests are using Protractor and Jasmine.
 - [Node](https://nodejs.org) - Javascript Runtime
 - [Express](https://expressjs.com/) - Javascript API Framework
 ## Application
-
+[App ./](http://alionour.udagram.s3-website-us-east-1.amazonaws.com/)
 ## License
 
 [License](LICENSE.txt)
