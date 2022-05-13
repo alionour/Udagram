@@ -75,6 +75,11 @@ jobs:
           name: Frontend test
           command: |
             npm run frontend:test
+      # run backend tests
+      - run:
+          name: Backend test
+          command: |
+            npm run backend:test
       # build backend
       - run:
           name: Backend build

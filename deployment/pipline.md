@@ -5,7 +5,11 @@ The pipeline is setup and connected with this GitHub repository in CircleCI to g
 Pipline gives:
 - **Speed**: Automatically performing all the steps of a pipeline is faster than doing it manually each time
 - **Finding bugs**: By running tests each time we are trying to deploy, we are able to find bugs earlier.
+## Continuous Integration
+**Continuous integration** is a DevOps software development practice where developers regularly merge their code changes into a central repository, after which automated builds and tests are run. Continuous integration most often refers to the build or integration stage of the software release process and entails both an automation component (e.g. a CI or build service) and a cultural component (e.g. learning to integrate frequently). The key goals of continuous integration are to find and address bugs quicker, improve software quality, and reduce the time it takes to validate and release new software updates.
 
+## Continuous Delivery
+**Continuous Delivery** is the ability to get changes of all types—including new features, configuration changes, bug fixes and experiments—into production, or into the hands of users, safely and quickly in a sustainable way.
 ##### CircleCI version
 This is simply indicating which version of the platform our pipeline should use and current version is 2.1. 
 ```yml
@@ -98,7 +102,7 @@ Run frontend tests
             npm run frontend:test
 
 ```
-Frontend & Backend deploy
+Frontend & Backend deploy considered as continuous delivery
 
 ```yml
        # deploy backend to elastic beanstalk
