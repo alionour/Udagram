@@ -62,7 +62,7 @@ jobs:
             - "./udagram-api/node_modules"
           key: backend-dependencies-{{checksum "./udagram-api/package.json"}}
       # build frontend
-      - run:
+      - run: 
           name: Frontend build
           command: |
             npm run frontend:build
