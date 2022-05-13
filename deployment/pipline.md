@@ -8,8 +8,18 @@ Pipline gives:
 ## Continuous Integration
 **Continuous integration** is a DevOps software development practice where developers regularly merge their code changes into a central repository, after which automated builds and tests are run. Continuous integration most often refers to the build or integration stage of the software release process and entails both an automation component (e.g. a CI or build service) and a cultural component (e.g. learning to integrate frequently). The key goals of continuous integration are to find and address bugs quicker, improve software quality, and reduce the time it takes to validate and release new software updates.
 
+    The scripts needed for installing, testing and building the frontend and backend of the application are found in the package.json files in udagram-api & udagram-frontend folders.
+    The scripts are called in the project-level package.json.
+
 ## Continuous Delivery
 **Continuous Delivery** is the ability to get changes of all types—including new features, configuration changes, bug fixes and experiments—into production, or into the hands of users, safely and quickly in a sustainable way.
+
+    The scripts needed for deploying the frontend and backend of the application are found in the package.json files in udagram-api & udagram-frontend folders.
+    The scripts are called in the project-level package.json.
+    Jobs are added in the .circleci/config.yml file for running these scripts:-
+        frontend:deploy
+        backend:deploy
+
 ##### CircleCI version
 This is simply indicating which version of the platform our pipeline should use and current version is 2.1. 
 ```yml
